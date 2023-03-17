@@ -1,0 +1,86 @@
+class SubscriptionProcessor {
+	SubscriptionProcessor()
+	{
+		cost = 0;
+	}
+	 main(args) {
+	  const subscriptionType = args[0];
+	  const billingCycle = args[1];
+	  const totalCost = this.createSubscriptionAndCalculateCost(subscriptionType, billingCycle);
+	  console.log(`Total cost for next 12 months will be ${totalCost}`);
+	}
+
+	 createSubscriptionAndCalculateCost(subscriptionType, billingCycle) {
+	  this.initiateSubscription(subscriptionType, billingCycle);
+	  return this.getTotalCostforTwelveMonths(billingCycle);
+	}
+
+	 initiateSubscription(subscriptionType, billingCycle) {
+	// TODO #1 Refactor below switch block applying OOPS concepts and make it extendable for new types of subscriptions in future.
+	// TODO #2 Create appropriate subscription object using factory pattern
+	  switch (subscriptionType) {
+		case "Video":
+		  if (billingCycle === "Monthly") {
+			this.cost = 10;
+		  } else if (billingCycle === "Quarterly") {
+			this.cost = 20;
+		  } else if (billingCycle === "Annual") {
+			this.cost = 60;
+		  }
+		  this.initiateVideoSubscription(this.cost, billingCycle);
+		  break;
+		case "Music":
+		  if (billingCycle === "Monthly") {
+			this.cost = 20;
+		  } else if (billingCycle === "Quarterly") {
+			this.cost = 50;
+		  } else if (billingCycle === "Annual") {
+			this.cost = 150;
+		  }
+		  this.initiateMusicSubscription(this.cost, billingCycle);
+		  break;
+		case "Podcast":
+		  if (billingCycle === "Monthly") {
+			this.cost = 50;
+		  } else if (billingCycle === "Quarterly") {
+			this.cost = 100;
+		  } else if (billingCycle === "Annual") {
+			this.cost = 300;
+		  }
+		  this.initiatePodcastSubscription(this.cost, billingCycle);
+		  break;
+	  }
+	}
+
+	 getTotalCostforTwelveMonths(billingCycle) {
+	// TODO 3 Extract this logic to a  in appropriate class
+	  let total = 0;
+	  if (billingCycle === "Monthly") {
+		total = this.cost * 12;
+	  } else if (billingCycle === "Quarterly") {
+		total = this.cost * 4;
+	  } else if (billingCycle === "Annual") {
+		total = this.cost * 1;
+	  }
+	  // TODO 4 Apply clean code principles as mucn as possible in final solution
+	  return total;
+	}
+
+	 initiateVideoSubscription(cost, billingCycle) {
+	// Business logic to initiate Video subscription goes here. 
+	  console.log(`Your ${billingCycle} Video subscription created. Cost per cycle is ${cost}`);
+	}
+
+	 initiateMusicSubscription(cost, billingCycle) {
+	// Business logic to initiate Music subscription
+	  console.log(`Your ${billingCycle} Music subscription created. Cost per cycle is ${cost}`);
+	}
+
+	 initiatePodcastSubscription(cost, billingCycle) {
+	// Business logic to initiate Podcast subscription
+	  console.log(`Your ${billingCycle} Podcast subscription created. Cost per cycle is ${cost}`);
+	}
+}
+const args = process.argv.slice(2);
+processor = new SubscriptionProcessor();
+processor.main(args)
